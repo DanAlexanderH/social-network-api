@@ -5,8 +5,7 @@ const thoughtSchema = new Schema(
         thoughtText: {
             type: String,
             required: true,
-            min: 1,
-            max: 280,
+            maxLength: 280,
         },
         createdAt: {
             type: Date,
@@ -17,10 +16,40 @@ const thoughtSchema = new Schema(
             required: true,
         },
         reactions: [reactionSchema]
+    },    
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
+    }
+);
+
+const reactionSchema = new Schema(
+    {
+        reactionId: {
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId(),
+        },
+        reactionBody: {
+            type: String,
+            required: true,
+            maxLength: 280,
+        },
+        username: {
+            type: String,
+            required: true,
+        },
+        createdAt: {
+            type: Data,
+            default: Data.now,
+            get: createdAtData => moment(createdAtData).format('MM DD, YYYY [at] hh:mm a'),
+        }
     },
     {
         toJSON: {
             virtuals: true,
+            getters: true,
         },
         id: false,
     }
