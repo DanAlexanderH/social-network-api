@@ -11,7 +11,7 @@ module.exports = {
         }
     },
 
-    async singleThought (res, res) {
+    async singleThought (req, res) {
         try {
             const thought = await Thought.findOne({ _id: req.params.thoughtId});
 

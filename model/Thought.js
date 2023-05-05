@@ -11,46 +11,22 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
+            get: createdAtData => moment(createdAtData).format('MMM DD, YYY [at] hh:mm a'),
         },
         username: {
             type: String,
             required: true,
         },
-        reactions: [reactionSchema]
+        reactions: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Reaction'
+            }
+        ]
     },    
     {
         toJSON: {
             virtuals: true,
-        },
-        id: false,
-    }
-);
-
-const reactionSchema = new Schema(
-    {
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
-        },
-        reactionBody: {
-            type: String,
-            required: true,
-            maxLength: 280,
-        },
-        username: {
-            type: String,
-            required: true,
-        },
-        createdAt: {
-            type: Data,
-            default: Data.now,
-            get: createdAtData => moment(createdAtData).format('MM DD, YYYY [at] hh:mm a'),
-        }
-    },
-    {
-        toJSON: {
-            virtuals: true,
-            getters: true,
         },
         id: false,
     }
