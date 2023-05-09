@@ -39,7 +39,7 @@ module.exports = {
     async updateUser(req, res) {
         try {
             const updateUser = await User.findOneAndUpdate(
-                { _id: req.body.userId },
+                { _id: req.params.userId },
                 { $set: req.body },
                 { runValidators: true, new: true }
             );
@@ -74,7 +74,7 @@ module.exports = {
         try {
             const addFriend = await User.findByIdAndUpdate(
                 { _id: req.params.userId },
-                { $addToSet: {friends: req.params.friendsId} },
+                { $addToSet: {friends: req.params.friendId} },
                 { runValidators: true, new: true }
             );
 

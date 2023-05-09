@@ -30,13 +30,13 @@ module.exports = {
         try {
             const thought = await Thought.create(req.body);
             const user = await User.findOneAndUpdate(
-                {_id: req.body.params},
+                {_id: req.body.userId},
                 {$push: {thoughts: thought._id}},
                 {new: true}
             );
 
             if(!user) {
-                res.status(400).json({ message: "Thought created, but there was no user with this ID!"})
+                res.status(200).json({ message: "Thought created, but there was no user with this ID!"})
             } else {
                 res.status(200).json({message: "Thought was created!"})
             }
